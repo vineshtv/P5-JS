@@ -7,7 +7,7 @@ class Ship {
         this.rotation = 0;
         this.isThrusting = false;
         this.resistance = 0.99;
-        this.health = 1;
+        this.health = 5;
         this.isHit = false;
     }
     
@@ -45,8 +45,14 @@ class Ship {
     hit(b){
         if(b){
             this.isHit = true;
-            this.health -= 0.2;
+            this.health -= 1;
             this.hitTime = millis();
+            console.log(this.health);
+            //life--;
+            if (this.health <= 0){
+                gameOver = true;
+                this.rotation = 0.1;
+            }
         }else{
             this.isHit = false;
         }
@@ -57,7 +63,8 @@ class Ship {
         push();
         var red = color(255,0,0);
         var green = color(0,255,0);
-        var col = lerpColor(red, green, this.health);
+        var health = map(this.health, 0, 5, 0, 1);
+        var col = lerpColor(red, green, health);
         var strokeCol = 255;
         if(this.isHit){
             strokeCol = red;
