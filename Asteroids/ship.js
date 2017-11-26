@@ -6,6 +6,7 @@ class Ship {
         this.heading = 0;
         this.rotation = 0;
         this.isThrusting = false;
+        this.resistance = 0.99;
     }
     
     update() {
@@ -13,7 +14,15 @@ class Ship {
             this.thrust();
         }
         this.pos.add(this.vel);
-        this.vel.mult(0.99);
+        this.vel.mult(this.resistance);
+    }
+    
+    Applybreak(b) {
+        if(b){
+            this.resistance = 0.95;
+        }else {
+            this.resistance = 0.99;
+        }
     }
     
     thrust() {
@@ -28,6 +37,7 @@ class Ship {
     
     render() {
         this.checkEdges();
+        push();
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI/2);
         stroke(255);
@@ -37,6 +47,7 @@ class Ship {
             fill(255,0,0, 150);
         }
         rect(-this.size/2 , this.size, this.size, this.size/4);
+        pop();
     }
     
     setRotation(angle) {

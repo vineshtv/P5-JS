@@ -1,7 +1,12 @@
 var ship;
+var asteroids = [];
+var numAsteroids = 5;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-    ship = new Ship(); 
+    ship = new Ship();
+    for(var i = 0; i < numAsteroids; i++){
+        asteroids.push(new Asteroid());
+    }
 }
 
 function draw() {
@@ -9,6 +14,11 @@ function draw() {
     ship.render();
     ship.turn();
     ship.update();
+    
+    for(var i = 0; i < numAsteroids; i++){
+        asteroids[i].render();
+        asteroids[i].update();
+    }
 }
 
 function keyPressed() {
@@ -18,6 +28,8 @@ function keyPressed() {
         ship.setRotation(-0.1);
     } else if (keyCode == UP_ARROW) {
         ship.thrusting(true);
+    } else if (keyCode == DOWN_ARROW) {
+        ship.Applybreak(true);
     }
 }
 
@@ -32,4 +44,7 @@ function keyReleased(){
         ship.thrusting(false);
     }
     
+    if(!keyIsDown(DOWN_ARROW)){
+        ship.Applybreak(false);
+    }
 }
