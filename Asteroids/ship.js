@@ -7,6 +7,8 @@ class Ship {
         this.rotation = 0;
         this.isThrusting = false;
         this.resistance = 0.99;
+        this.health = 1;
+        this.isHit = false;
     }
     
     update() {
@@ -27,7 +29,7 @@ class Ship {
     
     thrust() {
         var force = p5.Vector.fromAngle(this.heading);
-        force.mult(0.15);
+        force.mult(0.10);
         this.vel.add(force);
     }
     
@@ -35,16 +37,40 @@ class Ship {
         this.isThrusting = b;
     }
     
+    hits(asteroid){
+        var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y);
+        return(d < this.size + asteroid.size);
+    }
+    
+    hit(b){
+        if(b){
+            this.isHit = true;
+            this.health -= 0.2;
+            this.hitTime = millis();
+        }else{
+            this.isHit = false;
+        }
+    }
+    
     render() {
         this.checkEdges();
         push();
+        var red = color(255,0,0);
+        var green = color(0,255,0);
+        var col = lerpColor(red, green, this.health);
+        var strokeCol = 255;
+        if(this.isHit){
+            strokeCol = red;
+        }
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI/2);
-        stroke(255);
-        noFill();
+        stroke(strokeCol);
+        fill(col);
         triangle(-this.size, this.size, this.size, this.size, 0, -this.size);
         if (this.isThrusting){
             fill(255,0,0, 150);
+        }else{
+            fill(0);
         }
         rect(-this.size/2 , this.size, this.size, this.size/4);
         pop();
