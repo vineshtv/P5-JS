@@ -35,8 +35,8 @@ class Snake {
     render() {
         push()
         fill(255);
-        stroke(0);
-        //noStroke();
+        //stroke(0);
+        noStroke();
         //console.log("printing");
         for(var i = 0; i < this.tailLength; i++){
             rect(this.tail[i].x, this.tail[i].y, snakeSize, snakeSize);
