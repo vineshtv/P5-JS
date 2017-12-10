@@ -14,7 +14,8 @@ function setup() {
     randomButton.position(70, height + 30);
     randomButton.mousePressed(startRandom);
     resetButton = createButton('RESET');
-    resetButton.position
+    resetButton.position(150, height + 30);
+    resetButton.mousePressed(resetGol);
     rows = floor(width/cellSize);
     cols = floor(height/cellSize);
     
@@ -22,6 +23,14 @@ function setup() {
         for(var i = 0; i < cols; i++){
             cells.push(new Cell(i, j));
         }
+    }
+}
+
+function resetGol(){
+    started = false;
+    rand = false;
+    for(var i = 0; i < cells.length; i++){
+        cells[i].alive = false;
     }
 }
 
