@@ -24,6 +24,7 @@ class Cell {
         stroke(0);
         if(this.alive){
             fill(0);
+            //fill(232, 71, 53);
         } else{
             fill(255);
         }
