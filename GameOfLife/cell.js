@@ -19,7 +19,7 @@ class Cell {
         var x = this.i * cellSize;
         var y = this.j * cellSize;
         
-        stroke(0);
+        stroke(150);
         fill(this.alive ? 0 : 255);
         rect(x, y , cellSize, cellSize);
     }
