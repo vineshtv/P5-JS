@@ -3,7 +3,6 @@ var rows, cols;
 var cellSize = 10;
 var started = false;
 var rand = false;
-var createGosper = false;
 var gosperGunEncoding = [301, 302, 361, 362, 311, 371, 431, 252, 193, 194, 492, 553, 554, 375, 256, 317, 378, 437, 496, 377, 321, 261, 201, 202, 262, 322, 143, 383, 85, 145, 385, 445, 215, 216, 276, 275];
 
 function setup() {
@@ -49,7 +48,6 @@ function gosper(){
 function resetGol(){
     started = false;
     rand = false;
-    gosper = false;
     for(var i = 0; i < cells.length; i++){
         cells[i].alive = false;
     }
@@ -58,13 +56,11 @@ function resetGol(){
 function startGol()
 {
     started = true;
-    console.log("started");
 }
 
 function startRandom()
 {
     rand = true;
-    console.log("random Start");
 }
 
 function draw() {
@@ -89,7 +85,6 @@ function draw() {
             }
         }
         
-        
         cells = newCells;
     }
 }
@@ -110,7 +105,7 @@ function mousePressed(){
             //console.log(clickedX, clickedY);
             var ind = getIndex(clickedX, clickedY);
             if(ind != -1){
-                console.log(ind);
+                //console.log(ind);
                 cells[ind].click();
             }
         }

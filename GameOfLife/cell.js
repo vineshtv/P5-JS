@@ -2,8 +2,6 @@ class Cell {
     constructor(i, j, alive=false){
         this.i = i;
         this.j = j;
-        
-        
         this.alive = alive;
         
         this.neighborIndices = [this.index(i - 1, j - 1),
@@ -14,7 +12,7 @@ class Cell {
                                 this.index(i, j + 1),
                                 this.index(i - 1, j + 1),
                                 this.index(i - 1, j)
-                               ]
+                               ];
     }
     
     show(){
@@ -22,13 +20,7 @@ class Cell {
         var y = this.j * cellSize;
         
         stroke(0);
-        if(this.alive){
-            fill(0);
-            //fill(232, 71, 53);
-        } else{
-            fill(255);
-        }
-        
+        fill(this.alive ? 0 : 255);
         rect(x, y , cellSize, cellSize);
     }
     
@@ -49,17 +41,12 @@ class Cell {
         for(var i = 0; i < this.neighborIndices.length; i++){
             if(this.neighborIndices[i] != -1 && cells[this.neighborIndices[i]].alive){
                 count++;
+                if(count > 3){
+                    break;
+                }
             }
         }
         
-        if(count < 2 || count > 3){
-            return false;
-        }
-        
-        if(count == 3){
-            return true;
-        }
-        
-        return this.alive;
+        return((count < 2 || count > 3) ? false : ((count == 3) ? true : this.alive));
     }
 }
